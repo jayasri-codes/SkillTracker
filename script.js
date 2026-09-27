@@ -315,10 +315,42 @@ function addProject() {
     `;
 
     projectSection.appendChild(project);
+    savedProjects.push({
+    name: projectName,
+    technologies: projectTech,
+    status: projectStatus
+});
 
+localStorage.setItem(
+    "projects",
+    JSON.stringify(savedProjects)
+);
     document.getElementById("project-name").value = "";
     document.getElementById("project-tech").value = "";
 
     document.getElementById("projects-count").textContent =
         document.querySelectorAll(".project-card").length;
 }
+// Display saved projects
+function displayProjects() {
+    const projectSection = document.querySelector(".projects-section");
+
+    savedProjects.forEach(projectData => {
+        const project = document.createElement("div");
+
+        project.className = "project-card dynamic-project";
+
+        project.innerHTML = `
+            <h3>${projectData.name}</h3>
+            <p><strong>Technologies:</strong> ${projectData.technologies}</p>
+            <p><strong>Status:</strong> ${projectData.status}</p>
+        `;
+
+        projectSection.appendChild(project);
+    });
+
+    document.getElementById("projects-count").textContent =
+        document.querySelectorAll(".project-card").length;
+}
+
+displayProjects();

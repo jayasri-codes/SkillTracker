@@ -7,11 +7,7 @@ let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
 ];
 
 
-// Update dashboard
-function updateSkillCount() {
-    document.getElementById("skills-count").textContent = savedSkills.length;
-}
-
+// Dashboard counts
 document.getElementById("projects-count").textContent = 1;
 document.getElementById("certifications-count").textContent = 5;
 document.getElementById("dsa-count").textContent = 2;
@@ -22,12 +18,21 @@ function displaySkills() {
 
     const skillsSection = document.querySelector(".skills-section");
 
-    // Remove old dynamic skills
-    document.querySelectorAll(".dynamic-skill").forEach(skill => skill.remove());
+    // Remove all old skill elements
+    document.querySelectorAll(".dynamic-skill").forEach(skill => {
+        skill.remove();
+    });
 
+    // Hide the original HTML skills
+    document.querySelectorAll(".skills-section > .skill").forEach(skill => {
+        skill.style.display = "none";
+    });
+
+    // Create saved skills
     savedSkills.forEach((skillData, index) => {
 
         const skill = document.createElement("div");
+
         skill.className = "skill dynamic-skill";
 
         skill.innerHTML = `
@@ -42,28 +47,33 @@ function displaySkills() {
                 </div>
             </div>
 
-            <button onclick="editSkill(${index})">✏️ Edit</button>
-            <button onclick="deleteSkill(${index})">🗑️ Delete</button>
+            <button onclick="editSkill(${index})">
+                ✏️ Edit
+            </button>
+
+            <button onclick="deleteSkill(${index})">
+                🗑️ Delete
+            </button>
         `;
 
         skillsSection.appendChild(skill);
     });
 
-    updateSkillCount();
+    document.getElementById("skills-count").textContent =
+        savedSkills.length;
 }
 
 
 // Add skill
 function addSkill() {
 
-    const skillName = document.getElementById("skill-name").value.trim();
+    const nameInput = document.getElementById("skill-name");
+    const progressInput = document.getElementById("skill-progress");
 
-    const skillProgressInput =
-        document.getElementById("skill-progress").value;
+    const skillName = nameInput.value.trim();
+    const skillProgress = Number(progressInput.value);
 
-    const skillProgress = Number(skillProgressInput);
-
-    if (skillName === "" || skillProgressInput === "") {
+    if (skillName === "" || progressInput.value === "") {
         alert("Please enter a skill name and progress.");
         return;
     }
@@ -80,8 +90,8 @@ function addSkill() {
 
     saveSkills();
 
-    document.getElementById("skill-name").value = "";
-    document.getElementById("skill-progress").value = "";
+    nameInput.value = "";
+    progressInput.value = "";
 }
 
 
@@ -139,5 +149,5 @@ function saveSkills() {
 }
 
 
-// Display saved skills on page load
+// Load skills when page opens
 displaySkills();

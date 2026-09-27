@@ -1,35 +1,43 @@
-// Load saved skills
+// ===============================
+// LOAD SAVED DATA
+// ===============================
+
 let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
     { name: "Java", progress: 40 },
     { name: "HTML & CSS", progress: 60 },
     { name: "Python", progress: 50 },
     { name: "DSA", progress: 30 }
 ];
-let savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-let savedDSAProblems = JSON.parse(localStorage.getItem("dsaProblems")) || [];
 
-// Dashboard counts
-document.getElementById("projects-count").textContent =
-    document.querySelectorAll(".project-card").length;
-document.getElementById("certifications-count").textContent =
-    document.querySelectorAll(".certificate-card").length;
-document.getElementById("dsa-count").textContent =
-    document.querySelectorAll(".dsa-item").length;
+let savedProjects =
+    JSON.parse(localStorage.getItem("projects")) || [];
 
-// Display skills
+let savedDSAProblems =
+    JSON.parse(localStorage.getItem("dsaProblems")) || [];
+
+
+// ===============================
+// DISPLAY SKILLS
+// ===============================
+
 function displaySkills() {
 
-    const skillsSection = document.querySelector(".skills-section");
+    const skillsSection =
+        document.querySelector(".skills-section");
 
-    // Remove all old skill elements
+    if (!skillsSection) return;
+
+    // Remove previously created skills
     document.querySelectorAll(".dynamic-skill").forEach(skill => {
         skill.remove();
     });
 
-    // Hide the original HTML skills
-    document.querySelectorAll(".skills-section > .skill").forEach(skill => {
-        skill.style.display = "none";
-    });
+    // Hide original HTML skills
+    document
+        .querySelectorAll(".skills-section > .skill")
+        .forEach(skill => {
+            skill.style.display = "none";
+        });
 
     // Create saved skills
     savedSkills.forEach((skillData, index) => {
@@ -67,21 +75,36 @@ function displaySkills() {
 }
 
 
-// Add skill
+// ===============================
+// ADD SKILL
+// ===============================
+
 function addSkill() {
 
-    const nameInput = document.getElementById("skill-name");
-    const progressInput = document.getElementById("skill-progress");
+    const nameInput =
+        document.getElementById("skill-name");
 
-    const skillName = nameInput.value.trim();
-    const skillProgress = Number(progressInput.value);
+    const progressInput =
+        document.getElementById("skill-progress");
 
-    if (skillName === "" || progressInput.value === "") {
+    const skillName =
+        nameInput.value.trim();
+
+    const skillProgress =
+        Number(progressInput.value);
+
+    if (
+        skillName === "" ||
+        progressInput.value === ""
+    ) {
         alert("Please enter a skill name and progress.");
         return;
     }
 
-    if (skillProgress < 0 || skillProgress > 100) {
+    if (
+        skillProgress < 0 ||
+        skillProgress > 100
+    ) {
         alert("Progress must be between 0 and 100.");
         return;
     }
@@ -98,7 +121,10 @@ function addSkill() {
 }
 
 
-// Edit skill
+// ===============================
+// EDIT SKILL
+// ===============================
+
 function editSkill(index) {
 
     const newName = prompt(
@@ -106,7 +132,10 @@ function editSkill(index) {
         savedSkills[index].name
     );
 
-    if (newName === null || newName.trim() === "") {
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
         return;
     }
 
@@ -121,19 +150,29 @@ function editSkill(index) {
 
     const progress = Number(newProgress);
 
-    if (isNaN(progress) || progress < 0 || progress > 100) {
+    if (
+        isNaN(progress) ||
+        progress < 0 ||
+        progress > 100
+    ) {
         alert("Please enter a number between 0 and 100.");
         return;
     }
 
-    savedSkills[index].name = newName.trim();
-    savedSkills[index].progress = progress;
+    savedSkills[index].name =
+        newName.trim();
+
+    savedSkills[index].progress =
+        progress;
 
     saveSkills();
 }
 
 
-// Delete skill
+// ===============================
+// DELETE SKILL
+// ===============================
+
 function deleteSkill(index) {
 
     const confirmDelete = confirm(
@@ -150,7 +189,10 @@ function deleteSkill(index) {
 }
 
 
-// Save skills
+// ===============================
+// SAVE SKILLS
+// ===============================
+
 function saveSkills() {
 
     localStorage.setItem(
@@ -160,16 +202,36 @@ function saveSkills() {
 
     displaySkills();
 }
+
+
+// ===============================
+// ADD DSA PROBLEM
+// ===============================
+
 function addDSAProblem() {
 
-    const problemName = document.getElementById("problem-name").value.trim();
-    const problemLanguage = document.getElementById("problem-language").value.trim();
-    const problemDifficulty = document.getElementById("problem-difficulty").value;
+    const problemName =
+        document.getElementById("problem-name")
+            .value.trim();
 
-    if (problemName === "" || problemLanguage === "") {
-        alert("Please enter problem name and language.");
+    const problemLanguage =
+        document.getElementById("problem-language")
+            .value.trim();
+
+    const problemDifficulty =
+        document.getElementById("problem-difficulty")
+            .value;
+
+    if (
+        problemName === "" ||
+        problemLanguage === ""
+    ) {
+        alert(
+            "Please enter problem name and language."
+        );
         return;
     }
+
     savedDSAProblems.push({
         name: problemName,
         language: problemLanguage,
@@ -181,65 +243,89 @@ function addDSAProblem() {
         JSON.stringify(savedDSAProblems)
     );
 
-
-    const dsaSection = document.querySelector(".dsa-section");
-
-    const problem = document.createElement("div");
-    problem.className = "dsa-item dynamic-dsa";
-
-    problem.innerHTML = `
-        <p><strong>Problem:</strong> ${problemName}</p>
-        <p><strong>Language:</strong> ${problemLanguage}</p>
-        <p><strong>Difficulty:</strong> ${problemDifficulty}</p>
-    `;
-
-    dsaSection.appendChild(problem);
+    displayDSAProblems();
 
     document.getElementById("problem-name").value = "";
     document.getElementById("problem-language").value = "";
-
-    document.getElementById("dsa-count").textContent =
-        document.querySelectorAll(".dsa-item").length;
 }
 
 
-// Load skills when page opens
-displaySkills();
-    // Add DSA Problem
-// Display saved DSA problems
+// ===============================
+// DISPLAY DSA PROBLEMS
+// ===============================
+
 function displayDSAProblems() {
 
-    const dsaSection = document.querySelector(".dsa-section");
+    const dsaSection =
+        document.querySelector(".dsa-section");
 
-    savedDSAProblems.forEach((problemData, index) => {
-        const problem = document.createElement("div");
+    if (!dsaSection) return;
 
-        problem.className = "dsa-item dynamic-dsa";
+    // Remove old dynamic DSA items
+    document
+        .querySelectorAll(".dynamic-dsa")
+        .forEach(problem => {
+            problem.remove();
+        });
 
-        problem.innerHTML = `
-    <p><strong>Problem:</strong> ${problemData.name}</p>
-    <p><strong>Language:</strong> ${problemData.language}</p>
-    <p><strong>Difficulty:</strong> ${problemData.difficulty}</p>
+    savedDSAProblems.forEach(
+        (problemData, index) => {
 
-    <button onclick="editDSAProblem(${index})">✏️ Edit</button>
-    <button onclick="deleteDSAProblem(${index})">🗑️ Delete</button>
-`;
-        dsaSection.appendChild(problem);
-    });
+            const problem =
+                document.createElement("div");
+
+            problem.className =
+                "dsa-item dynamic-dsa";
+
+            problem.innerHTML = `
+                <p>
+                    <strong>Problem:</strong>
+                    ${problemData.name}
+                </p>
+
+                <p>
+                    <strong>Language:</strong>
+                    ${problemData.language}
+                </p>
+
+                <p>
+                    <strong>Difficulty:</strong>
+                    ${problemData.difficulty}
+                </p>
+
+                <button onclick="editDSAProblem(${index})">
+                    ✏️ Edit
+                </button>
+
+                <button onclick="deleteDSAProblem(${index})">
+                    🗑️ Delete
+                </button>
+            `;
+
+            dsaSection.appendChild(problem);
+        }
+    );
 
     document.getElementById("dsa-count").textContent =
         document.querySelectorAll(".dsa-item").length;
 }
 
-displayDSAProblems();
-// Edit DSA Problem
+
+// ===============================
+// EDIT DSA PROBLEM
+// ===============================
+
 function editDSAProblem(index) {
+
     const newName = prompt(
         "Enter problem name:",
         savedDSAProblems[index].name
     );
 
-    if (newName === null || newName.trim() === "") {
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
         return;
     }
 
@@ -248,7 +334,10 @@ function editDSAProblem(index) {
         savedDSAProblems[index].language
     );
 
-    if (newLanguage === null || newLanguage.trim() === "") {
+    if (
+        newLanguage === null ||
+        newLanguage.trim() === ""
+    ) {
         return;
     }
 
@@ -257,24 +346,37 @@ function editDSAProblem(index) {
         savedDSAProblems[index].difficulty
     );
 
-    if (newDifficulty === null || newDifficulty.trim() === "") {
+    if (
+        newDifficulty === null ||
+        newDifficulty.trim() === ""
+    ) {
         return;
     }
 
-    savedDSAProblems[index].name = newName.trim();
-    savedDSAProblems[index].language = newLanguage.trim();
-    savedDSAProblems[index].difficulty = newDifficulty.trim();
+    savedDSAProblems[index].name =
+        newName.trim();
+
+    savedDSAProblems[index].language =
+        newLanguage.trim();
+
+    savedDSAProblems[index].difficulty =
+        newDifficulty.trim();
 
     localStorage.setItem(
         "dsaProblems",
         JSON.stringify(savedDSAProblems)
     );
 
-    location.reload();
+    displayDSAProblems();
 }
 
-// Delete DSA Problem
+
+// ===============================
+// DELETE DSA PROBLEM
+// ===============================
+
 function deleteDSAProblem(index) {
+
     const confirmDelete = confirm(
         "Are you sure you want to delete this problem?"
     );
@@ -290,355 +392,35 @@ function deleteDSAProblem(index) {
         JSON.stringify(savedDSAProblems)
     );
 
-    location.reload();
-}
-// Add Project
-function addProject() {
-    const projectName = document.getElementById("project-name").value.trim();
-    const projectTech = document.getElementById("project-tech").value.trim();
-    const projectStatus = document.getElementById("project-status").value;
-
-    if (projectName === "" || projectTech === "") {
-        alert("Please enter project name and technologies.");
-        return;
-    }
-
-    const projectSection = document.querySelector(".projects-section");
-
-    const project = document.createElement("div");
-    project.className = "project-card dynamic-project";
-
-    project.innerHTML = `
-        <h3>${projectName}</h3>
-        <p><strong>Technologies:</strong> ${projectTech}</p>
-        <p><strong>Status:</strong> ${projectStatus}</p>
-    `;
-
-    projectSection.appendChild(project);
-    savedProjects.push({
-    name: projectName,
-    technologies: projectTech,
-    status: projectStatus
-});
-
-localStorage.setItem(
-    "projects",
-    JSON.stringify(savedProjects)
-);
-    document.getElementById("project-name").value = "";
-    document.getElementById("project-tech").value = "";
-
-    document.getElementById("projects-count").textContent =
-        document.querySelectorAll(".project-card").length;
-}
-// Load saved skills
-let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
-    { name: "Java", progress: 40 },
-    { name: "HTML & CSS", progress: 60 },
-    { name: "Python", progress: 50 },
-    { name: "DSA", progress: 30 }
-];
-let savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-let savedDSAProblems = JSON.parse(localStorage.getItem("dsaProblems")) || [];
-
-// Dashboard counts
-document.getElementById("projects-count").textContent =
-    document.querySelectorAll(".project-card").length;
-document.getElementById("certifications-count").textContent =
-    document.querySelectorAll(".certificate-card").length;
-document.getElementById("dsa-count").textContent =
-    document.querySelectorAll(".dsa-item").length;
-
-// Display skills
-function displaySkills() {
-
-    const skillsSection = document.querySelector(".skills-section");
-
-    // Remove all old skill elements
-    document.querySelectorAll(".dynamic-skill").forEach(skill => {
-        skill.remove();
-    });
-
-    // Hide the original HTML skills
-    document.querySelectorAll(".skills-section > .skill").forEach(skill => {
-        skill.style.display = "none";
-    });
-
-    // Create saved skills
-    savedSkills.forEach((skillData, index) => {
-
-        const skill = document.createElement("div");
-
-        skill.className = "skill dynamic-skill";
-
-        skill.innerHTML = `
-            <p>
-                <strong>${skillData.name}</strong>
-                - ${skillData.progress}%
-            </p>
-
-            <div class="progress">
-                <div class="progress-bar"
-                     style="width: ${skillData.progress}%;">
-                </div>
-            </div>
-
-            <button onclick="editSkill(${index})">
-                ✏️ Edit
-            </button>
-
-            <button onclick="deleteSkill(${index})">
-                🗑️ Delete
-            </button>
-        `;
-
-        skillsSection.appendChild(skill);
-    });
-
-    document.getElementById("skills-count").textContent =
-        savedSkills.length;
+    displayDSAProblems();
 }
 
 
-// Add skill
-function addSkill() {
+// ===============================
+// ADD PROJECT
+// ===============================
 
-    const nameInput = document.getElementById("skill-name");
-    const progressInput = document.getElementById("skill-progress");
-
-    const skillName = nameInput.value.trim();
-    const skillProgress = Number(progressInput.value);
-
-    if (skillName === "" || progressInput.value === "") {
-        alert("Please enter a skill name and progress.");
-        return;
-    }
-
-    if (skillProgress < 0 || skillProgress > 100) {
-        alert("Progress must be between 0 and 100.");
-        return;
-    }
-
-    savedSkills.push({
-        name: skillName,
-        progress: skillProgress
-    });
-
-    saveSkills();
-
-    nameInput.value = "";
-    progressInput.value = "";
-}
-
-
-// Edit skill
-function editSkill(index) {
-
-    const newName = prompt(
-        "Enter skill name:",
-        savedSkills[index].name
-    );
-
-    if (newName === null || newName.trim() === "") {
-        return;
-    }
-
-    const newProgress = prompt(
-        "Enter progress (0-100):",
-        savedSkills[index].progress
-    );
-
-    if (newProgress === null) {
-        return;
-    }
-
-    const progress = Number(newProgress);
-
-    if (isNaN(progress) || progress < 0 || progress > 100) {
-        alert("Please enter a number between 0 and 100.");
-        return;
-    }
-
-    savedSkills[index].name = newName.trim();
-    savedSkills[index].progress = progress;
-
-    saveSkills();
-}
-
-
-// Delete skill
-function deleteSkill(index) {
-
-    const confirmDelete = confirm(
-        "Are you sure you want to delete this skill?"
-    );
-
-    if (!confirmDelete) {
-        return;
-    }
-
-    savedSkills.splice(index, 1);
-
-    saveSkills();
-}
-
-
-// Save skills
-function saveSkills() {
-
-    localStorage.setItem(
-        "skills",
-        JSON.stringify(savedSkills)
-    );
-
-    displaySkills();
-}
-function addDSAProblem() {
-
-    const problemName = document.getElementById("problem-name").value.trim();
-    const problemLanguage = document.getElementById("problem-language").value.trim();
-    const problemDifficulty = document.getElementById("problem-difficulty").value;
-
-    if (problemName === "" || problemLanguage === "") {
-        alert("Please enter problem name and language.");
-        return;
-    }
-    savedDSAProblems.push({
-        name: problemName,
-        language: problemLanguage,
-        difficulty: problemDifficulty
-    });
-
-    localStorage.setItem(
-        "dsaProblems",
-        JSON.stringify(savedDSAProblems)
-    );
-
-
-    const dsaSection = document.querySelector(".dsa-section");
-
-    const problem = document.createElement("div");
-    problem.className = "dsa-item dynamic-dsa";
-
-    problem.innerHTML = `
-        <p><strong>Problem:</strong> ${problemName}</p>
-        <p><strong>Language:</strong> ${problemLanguage}</p>
-        <p><strong>Difficulty:</strong> ${problemDifficulty}</p>
-    `;
-
-    dsaSection.appendChild(problem);
-
-    document.getElementById("problem-name").value = "";
-    document.getElementById("problem-language").value = "";
-
-    document.getElementById("dsa-count").textContent =
-        document.querySelectorAll(".dsa-item").length;
-}
-
-
-// Load skills when page opens
-displaySkills();
-    // Add DSA Problem
-// Display saved DSA problems
-function displayDSAProblems() {
-
-    const dsaSection = document.querySelector(".dsa-section");
-
-    savedDSAProblems.forEach((problemData, index) => {
-        const problem = document.createElement("div");
-
-        problem.className = "dsa-item dynamic-dsa";
-
-        problem.innerHTML = `
-    <p><strong>Problem:</strong> ${problemData.name}</p>
-    <p><strong>Language:</strong> ${problemData.language}</p>
-    <p><strong>Difficulty:</strong> ${problemData.difficulty}</p>
-
-    <button onclick="editDSAProblem(${index})">✏️ Edit</button>
-    <button onclick="deleteDSAProblem(${index})">🗑️ Delete</button>
-`;
-        dsaSection.appendChild(problem);
-    });
-
-    document.getElementById("dsa-count").textContent =
-        document.querySelectorAll(".dsa-item").length;
-}
-
-displayDSAProblems();
-// Edit DSA Problem
-function editDSAProblem(index) {
-    const newName = prompt(
-        "Enter problem name:",
-        savedDSAProblems[index].name
-    );
-
-    if (newName === null || newName.trim() === "") {
-        return;
-    }
-
-    const newLanguage = prompt(
-        "Enter language:",
-        savedDSAProblems[index].language
-    );
-
-    if (newLanguage === null || newLanguage.trim() === "") {
-        return;
-    }
-
-    const newDifficulty = prompt(
-        "Enter difficulty (Easy, Medium, Hard):",
-        savedDSAProblems[index].difficulty
-    );
-
-    if (newDifficulty === null || newDifficulty.trim() === "") {
-        return;
-    }
-
-    savedDSAProblems[index].name = newName.trim();
-    savedDSAProblems[index].language = newLanguage.trim();
-    savedDSAProblems[index].difficulty = newDifficulty.trim();
-
-    localStorage.setItem(
-        "dsaProblems",
-        JSON.stringify(savedDSAProblems)
-    );
-
-    location.reload();
-}
-
-// Delete DSA Problem
-function deleteDSAProblem(index) {
-    const confirmDelete = confirm(
-        "Are you sure you want to delete this problem?"
-    );
-
-    if (!confirmDelete) {
-        return;
-    }
-
-    savedDSAProblems.splice(index, 1);
-
-    localStorage.setItem(
-        "dsaProblems",
-        JSON.stringify(savedDSAProblems)
-    );
-
-    location.reload();
-}
-// Add Project
 function addProject() {
 
     const projectName =
-        document.getElementById("project-name").value.trim();
+        document.getElementById("project-name")
+            .value.trim();
 
     const projectTech =
-        document.getElementById("project-tech").value.trim();
+        document.getElementById("project-tech")
+            .value.trim();
 
     const projectStatus =
-        document.getElementById("project-status").value;
+        document.getElementById("project-status")
+            .value;
 
-    if (projectName === "" || projectTech === "") {
-        alert("Please enter project name and technologies.");
+    if (
+        projectName === "" ||
+        projectTech === ""
+    ) {
+        alert(
+            "Please enter project name and technologies."
+        );
         return;
     }
 
@@ -660,52 +442,68 @@ function addProject() {
 }
 
 
-// Display Projects
+// ===============================
+// DISPLAY PROJECTS
+// ===============================
+
 function displayProjects() {
 
-    const projectList = document.getElementById("project-list");
+    const projectList =
+        document.getElementById("project-list");
 
-    // Remove only dynamically added projects
-    document.querySelectorAll(".dynamic-project").forEach(project => {
-        project.remove();
-    });
+    if (!projectList) return;
 
-    savedProjects.forEach((projectData, index) => {
+    // Remove dynamically created projects
+    document
+        .querySelectorAll(".dynamic-project")
+        .forEach(project => {
+            project.remove();
+        });
 
-        const project = document.createElement("div");
+    savedProjects.forEach(
+        (projectData, index) => {
 
-        project.className = "project-card dynamic-project";
+            const project =
+                document.createElement("div");
 
-        project.innerHTML = `
-            <h3>${projectData.name}</h3>
+            project.className =
+                "project-card dynamic-project";
 
-            <p>
-                <strong>Technologies:</strong>
-                ${projectData.technologies}
-            </p>
+            project.innerHTML = `
+                <h3>${projectData.name}</h3>
 
-            <p>
-                <strong>Status:</strong>
-                ${projectData.status}
-            </p>
+                <p>
+                    <strong>Technologies:</strong>
+                    ${projectData.technologies}
+                </p>
 
-            <button onclick="editProject(${index})">
-                ✏️ Edit
-            </button>
+                <p>
+                    <strong>Status:</strong>
+                    ${projectData.status}
+                </p>
 
-            <button onclick="deleteProject(${index})">
-                🗑️ Delete
-            </button>
-        `;
+                <button onclick="editProject(${index})">
+                    ✏️ Edit
+                </button>
 
-        projectList.appendChild(project);
-    });
+                <button onclick="deleteProject(${index})">
+                    🗑️ Delete
+                </button>
+            `;
+
+            projectList.appendChild(project);
+        }
+    );
 
     document.getElementById("projects-count").textContent =
         document.querySelectorAll(".project-card").length;
 }
 
-// Edit Project
+
+// ===============================
+// EDIT PROJECT
+// ===============================
+
 function editProject(index) {
 
     const newName = prompt(
@@ -713,7 +511,10 @@ function editProject(index) {
         savedProjects[index].name
     );
 
-    if (newName === null || newName.trim() === "") {
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
         return;
     }
 
@@ -722,7 +523,10 @@ function editProject(index) {
         savedProjects[index].technologies
     );
 
-    if (newTech === null || newTech.trim() === "") {
+    if (
+        newTech === null ||
+        newTech.trim() === ""
+    ) {
         return;
     }
 
@@ -731,13 +535,21 @@ function editProject(index) {
         savedProjects[index].status
     );
 
-    if (newStatus === null || newStatus.trim() === "") {
+    if (
+        newStatus === null ||
+        newStatus.trim() === ""
+    ) {
         return;
     }
 
-    savedProjects[index].name = newName.trim();
-    savedProjects[index].technologies = newTech.trim();
-    savedProjects[index].status = newStatus.trim();
+    savedProjects[index].name =
+        newName.trim();
+
+    savedProjects[index].technologies =
+        newTech.trim();
+
+    savedProjects[index].status =
+        newStatus.trim();
 
     localStorage.setItem(
         "projects",
@@ -748,7 +560,10 @@ function editProject(index) {
 }
 
 
-// Delete Project
+// ===============================
+// DELETE PROJECT
+// ===============================
+
 function deleteProject(index) {
 
     const confirmDelete = confirm(
@@ -770,5 +585,17 @@ function deleteProject(index) {
 }
 
 
-// Load Projects when page opens
+// ===============================
+// INITIAL LOAD
+// ===============================
+
+displaySkills();
+
+displayDSAProblems();
+
 displayProjects();
+
+
+// Dashboard counts
+document.getElementById("certifications-count").textContent =
+    document.querySelectorAll(".certificate-card").length;

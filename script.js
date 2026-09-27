@@ -663,9 +663,9 @@ function addProject() {
 // Display Projects
 function displayProjects() {
 
-    const projectSection =
-        document.querySelector(".projects-section");
+    const projectList = document.getElementById("project-list");
 
+    // Remove only dynamically added projects
     document.querySelectorAll(".dynamic-project").forEach(project => {
         project.remove();
     });
@@ -698,13 +698,12 @@ function displayProjects() {
             </button>
         `;
 
-        projectSection.appendChild(project);
+        projectList.appendChild(project);
     });
 
     document.getElementById("projects-count").textContent =
         document.querySelectorAll(".project-card").length;
 }
-
 
 // Edit Project
 function editProject(index) {

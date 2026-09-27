@@ -8,10 +8,12 @@ let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
 
 
 // Dashboard counts
-document.getElementById("projects-count").textContent = 1;
-document.getElementById("certifications-count").textContent = 5;
-document.getElementById("dsa-count").textContent = 2;
-
+document.getElementById("projects-count").textContent =
+    document.querySelectorAll(".project-card").length;
+document.getElementById("certifications-count").textContent =
+    document.querySelectorAll(".certificate-card").length;
+document.getElementById("dsa-count").textContent =
+    document.querySelectorAll(".dsa-item").length;
 
 // Display skills
 function displaySkills() {

@@ -628,9 +628,14 @@ function deleteDSAProblem(index) {
 // Add Project
 function addProject() {
 
-    const projectName = document.getElementById("project-name").value.trim();
-    const projectTech = document.getElementById("project-tech").value.trim();
-    const projectStatus = document.getElementById("project-status").value;
+    const projectName =
+        document.getElementById("project-name").value.trim();
+
+    const projectTech =
+        document.getElementById("project-tech").value.trim();
+
+    const projectStatus =
+        document.getElementById("project-status").value;
 
     if (projectName === "" || projectTech === "") {
         alert("Please enter project name and technologies.");
@@ -658,7 +663,8 @@ function addProject() {
 // Display Projects
 function displayProjects() {
 
-    const projectSection = document.querySelector(".projects-section");
+    const projectSection =
+        document.querySelector(".projects-section");
 
     document.querySelectorAll(".dynamic-project").forEach(project => {
         project.remove();
@@ -682,9 +688,11 @@ function displayProjects() {
                 <strong>Status:</strong>
                 ${projectData.status}
             </p>
+
             <button onclick="editProject(${index})">
                 ✏️ Edit
             </button>
+
             <button onclick="deleteProject(${index})">
                 🗑️ Delete
             </button>
@@ -696,7 +704,11 @@ function displayProjects() {
     document.getElementById("projects-count").textContent =
         document.querySelectorAll(".project-card").length;
 }
+
+
+// Edit Project
 function editProject(index) {
+
     const newName = prompt(
         "Enter project name:",
         savedProjects[index].name
@@ -737,6 +749,7 @@ function editProject(index) {
 }
 
 
+// Delete Project
 function deleteProject(index) {
 
     const confirmDelete = confirm(
@@ -757,3 +770,6 @@ function deleteProject(index) {
     displayProjects();
 }
 
+
+// Load Projects when page opens
+displayProjects();

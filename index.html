@@ -142,7 +142,15 @@
         <section class="projects-section">
 
             <h2>My Projects</h2>
-
+            <div class="add-project">
+    <input type="text" id="project-name" placeholder="Project name">
+    <input type="text" id="project-tech" placeholder="Technologies">
+    <select id="project-status">
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+    <button onclick="addProject()">Add Project</button>
+</div>
             <div class="project-card">
 
                 <h3>SkillTrack</h3>

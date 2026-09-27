@@ -5,6 +5,7 @@ let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
     { name: "Python", progress: 50 },
     { name: "DSA", progress: 30 }
 ];
+let savedProjects = JSON.parse(localStorage.getItem("projects")) || [];
 let savedDSAProblems = JSON.parse(localStorage.getItem("dsaProblems")) || [];
 
 // Dashboard counts

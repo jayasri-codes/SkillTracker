@@ -158,6 +158,7 @@ function saveSkills() {
     );
 
     displaySkills();
+}
     // Add DSA Problem
 function addDSAProblem() {
 
@@ -189,7 +190,7 @@ function addDSAProblem() {
     document.getElementById("dsa-count").textContent =
         document.querySelectorAll(".dsa-item").length;
 }
-}
+
 
 
 // Load skills when page opens

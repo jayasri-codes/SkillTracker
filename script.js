@@ -160,6 +160,7 @@ function saveSkills() {
     displaySkills();
 }
     // Add DSA Problem
+```javascript
 function addDSAProblem() {
 
     const problemName = document.getElementById("problem-name").value.trim();
@@ -171,27 +172,64 @@ function addDSAProblem() {
         return;
     }
 
-    const dsaSection = document.querySelector(".dsa-section");
+    const problem = {
+        name: problemName,
+        language: problemLanguage,
+        difficulty: problemDifficulty
+    };
 
-    const problem = document.createElement("div");
-    problem.className = "dsa-item dynamic-dsa";
+    // Get existing DSA problems
+    let dsaProblems = JSON.parse(localStorage.getItem("dsaProblems")) || [];
 
-    problem.innerHTML = `
-        <p><strong>Problem:</strong> ${problemName}</p>
-        <p><strong>Language:</strong> ${problemLanguage}</p>
-        <p><strong>Difficulty:</strong> ${problemDifficulty}</p>
-    `;
+    // Add new problem
+    dsaProblems.push(problem);
 
-    dsaSection.appendChild(problem);
+    // Save problems
+    localStorage.setItem("dsaProblems", JSON.stringify(dsaProblems));
+
+    displayDSAProblems();
 
     document.getElementById("problem-name").value = "";
     document.getElementById("problem-language").value = "";
+}
+
+
+// Display saved DSA problems
+function displayDSAProblems() {
+
+    const dsaSection = document.querySelector(".dsa-section");
+
+    // Keep only the original/static content
+    document.querySelectorAll(".dynamic-dsa").forEach(item => item.remove());
+
+    const dsaProblems =
+        JSON.parse(localStorage.getItem("dsaProblems")) || [];
+
+    dsaProblems.forEach(problem => {
+
+        const problemElement = document.createElement("div");
+        problemElement.className = "dsa-item dynamic-dsa";
+
+        problemElement.innerHTML = `
+            <p><strong>Problem:</strong> ${problem.name}</p>
+            <p><strong>Language:</strong> ${problem.language}</p>
+            <p><strong>Difficulty:</strong> ${problem.difficulty}</p>
+        `;
+
+        dsaSection.appendChild(problemElement);
+    });
 
     document.getElementById("dsa-count").textContent =
         document.querySelectorAll(".dsa-item").length;
 }
 
 
+// Load saved DSA problems when page opens
+displayDSAProblems();
+
 
 // Load skills when page opens
 displaySkills();
+```
+
+

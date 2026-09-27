@@ -158,6 +158,37 @@ function saveSkills() {
     );
 
     displaySkills();
+    // Add DSA Problem
+function addDSAProblem() {
+
+    const problemName = document.getElementById("problem-name").value.trim();
+    const problemLanguage = document.getElementById("problem-language").value.trim();
+    const problemDifficulty = document.getElementById("problem-difficulty").value;
+
+    if (problemName === "" || problemLanguage === "") {
+        alert("Please enter problem name and language.");
+        return;
+    }
+
+    const dsaSection = document.querySelector(".dsa-section");
+
+    const problem = document.createElement("div");
+    problem.className = "dsa-item dynamic-dsa";
+
+    problem.innerHTML = `
+        <p><strong>Problem:</strong> ${problemName}</p>
+        <p><strong>Language:</strong> ${problemLanguage}</p>
+        <p><strong>Difficulty:</strong> ${problemDifficulty}</p>
+    `;
+
+    dsaSection.appendChild(problem);
+
+    document.getElementById("problem-name").value = "";
+    document.getElementById("problem-language").value = "";
+
+    document.getElementById("dsa-count").textContent =
+        document.querySelectorAll(".dsa-item").length;
+}
 }
 
 

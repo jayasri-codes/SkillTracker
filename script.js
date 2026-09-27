@@ -5,7 +5,7 @@ let savedSkills = JSON.parse(localStorage.getItem("skills")) || [
     { name: "Python", progress: 50 },
     { name: "DSA", progress: 30 }
 ];
-
+let savedDSAProblems = JSON.parse(localStorage.getItem("dsaProblems")) || [];
 
 // Dashboard counts
 document.getElementById("projects-count").textContent =
@@ -169,6 +169,17 @@ function addDSAProblem() {
         alert("Please enter problem name and language.");
         return;
     }
+    savedDSAProblems.push({
+        name: problemName,
+        language: problemLanguage,
+        difficulty: problemDifficulty
+    });
+
+    localStorage.setItem(
+        "dsaProblems",
+        JSON.stringify(savedDSAProblems)
+    );
+
 
     const dsaSection = document.querySelector(".dsa-section");
 
@@ -194,3 +205,28 @@ function addDSAProblem() {
 // Load skills when page opens
 displaySkills();
     // Add DSA Problem
+// Display saved DSA problems
+function displayDSAProblems() {
+
+    const dsaSection = document.querySelector(".dsa-section");
+
+    savedDSAProblems.forEach(problemData => {
+
+        const problem = document.createElement("div");
+
+        problem.className = "dsa-item dynamic-dsa";
+
+        problem.innerHTML = `
+            <p><strong>Problem:</strong> ${problemData.name}</p>
+            <p><strong>Language:</strong> ${problemData.language}</p>
+            <p><strong>Difficulty:</strong> ${problemData.difficulty}</p>
+        `;
+
+        dsaSection.appendChild(problem);
+    });
+
+    document.getElementById("dsa-count").textContent =
+        document.querySelectorAll(".dsa-item").length;
+}
+
+displayDSAProblems();

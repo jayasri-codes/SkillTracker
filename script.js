@@ -682,7 +682,9 @@ function displayProjects() {
                 <strong>Status:</strong>
                 ${projectData.status}
             </p>
-
+            <button onclick="editProject(${index})">
+                ✏️ Edit
+            </button>
             <button onclick="deleteProject(${index})">
                 🗑️ Delete
             </button>
@@ -694,9 +696,47 @@ function displayProjects() {
     document.getElementById("projects-count").textContent =
         document.querySelectorAll(".project-card").length;
 }
+function editProject(index) {
+    const newName = prompt(
+        "Enter project name:",
+        savedProjects[index].name
+    );
+
+    if (newName === null || newName.trim() === "") {
+        return;
+    }
+
+    const newTech = prompt(
+        "Enter technologies:",
+        savedProjects[index].technologies
+    );
+
+    if (newTech === null || newTech.trim() === "") {
+        return;
+    }
+
+    const newStatus = prompt(
+        "Enter status:",
+        savedProjects[index].status
+    );
+
+    if (newStatus === null || newStatus.trim() === "") {
+        return;
+    }
+
+    savedProjects[index].name = newName.trim();
+    savedProjects[index].technologies = newTech.trim();
+    savedProjects[index].status = newStatus.trim();
+
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(savedProjects)
+    );
+
+    displayProjects();
+}
 
 
-// Delete Project
 function deleteProject(index) {
 
     const confirmDelete = confirm(
@@ -717,7 +757,3 @@ function deleteProject(index) {
     displayProjects();
 }
 
-
-// Display saved projects when page opens
-displayProjects();
-}

@@ -401,7 +401,7 @@ function deleteDSAProblem(index) {
 // ===============================
 
 function addProject() {
-
+    alert("Add Project function is working!");
     const projectName =
         document.getElementById("project-name")
             .value.trim();

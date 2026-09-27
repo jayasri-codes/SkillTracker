@@ -98,8 +98,17 @@ function addSkill() {
 // Edit skill
 function editSkill(index) {
 
+    const newName = prompt(
+        "Enter skill name:",
+        savedSkills[index].name
+    );
+
+    if (newName === null || newName.trim() === "") {
+        return;
+    }
+
     const newProgress = prompt(
-        "Enter new progress (0-100):",
+        "Enter progress (0-100):",
         savedSkills[index].progress
     );
 
@@ -114,6 +123,7 @@ function editSkill(index) {
         return;
     }
 
+    savedSkills[index].name = newName.trim();
     savedSkills[index].progress = progress;
 
     saveSkills();

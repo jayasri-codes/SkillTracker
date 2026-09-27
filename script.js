@@ -291,3 +291,33 @@ function deleteDSAProblem(index) {
 
     location.reload();
 }
+// Add Project
+function addProject() {
+    const projectName = document.getElementById("project-name").value.trim();
+    const projectTech = document.getElementById("project-tech").value.trim();
+    const projectStatus = document.getElementById("project-status").value;
+
+    if (projectName === "" || projectTech === "") {
+        alert("Please enter project name and technologies.");
+        return;
+    }
+
+    const projectSection = document.querySelector(".projects-section");
+
+    const project = document.createElement("div");
+    project.className = "project-card dynamic-project";
+
+    project.innerHTML = `
+        <h3>${projectName}</h3>
+        <p><strong>Technologies:</strong> ${projectTech}</p>
+        <p><strong>Status:</strong> ${projectStatus}</p>
+    `;
+
+    projectSection.appendChild(project);
+
+    document.getElementById("project-name").value = "";
+    document.getElementById("project-tech").value = "";
+
+    document.getElementById("projects-count").textContent =
+        document.querySelectorAll(".project-card").length;
+}

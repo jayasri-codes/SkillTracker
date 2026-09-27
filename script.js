@@ -627,6 +627,7 @@ function deleteDSAProblem(index) {
 }
 // Add Project
 function addProject() {
+
     const projectName = document.getElementById("project-name").value.trim();
     const projectTech = document.getElementById("project-tech").value.trim();
     const projectStatus = document.getElementById("project-status").value;
@@ -636,47 +637,55 @@ function addProject() {
         return;
     }
 
-    const projectSection = document.querySelector(".projects-section");
-
-    const project = document.createElement("div");
-    project.className = "project-card dynamic-project";
-
-    project.innerHTML = `
-        <h3>${projectName}</h3>
-        <p><strong>Technologies:</strong> ${projectTech}</p>
-        <p><strong>Status:</strong> ${projectStatus}</p>
-    `;
-
-    projectSection.appendChild(project);
     savedProjects.push({
-    name: projectName,
-    technologies: projectTech,
-    status: projectStatus
-});
+        name: projectName,
+        technologies: projectTech,
+        status: projectStatus
+    });
 
-localStorage.setItem(
-    "projects",
-    JSON.stringify(savedProjects)
-);
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(savedProjects)
+    );
+
     document.getElementById("project-name").value = "";
     document.getElementById("project-tech").value = "";
 
-    document.getElementById("projects-count").textContent =
-        document.querySelectorAll(".project-card").length;
+    displayProjects();
 }
-// Display saved projects
+
+
+// Display Projects
 function displayProjects() {
+
     const projectSection = document.querySelector(".projects-section");
 
-    savedProjects.forEach(projectData => {
+    document.querySelectorAll(".dynamic-project").forEach(project => {
+        project.remove();
+    });
+
+    savedProjects.forEach((projectData, index) => {
+
         const project = document.createElement("div");
 
         project.className = "project-card dynamic-project";
 
         project.innerHTML = `
             <h3>${projectData.name}</h3>
-            <p><strong>Technologies:</strong> ${projectData.technologies}</p>
-            <p><strong>Status:</strong> ${projectData.status}</p>
+
+            <p>
+                <strong>Technologies:</strong>
+                ${projectData.technologies}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                ${projectData.status}
+            </p>
+
+            <button onclick="deleteProject(${index})">
+                🗑️ Delete
+            </button>
         `;
 
         projectSection.appendChild(project);
@@ -686,4 +695,29 @@ function displayProjects() {
         document.querySelectorAll(".project-card").length;
 }
 
+
+// Delete Project
+function deleteProject(index) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this project?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    savedProjects.splice(index, 1);
+
+    localStorage.setItem(
+        "projects",
+        JSON.stringify(savedProjects)
+    );
+
+    displayProjects();
+}
+
+
+// Display saved projects when page opens
 displayProjects();
+}

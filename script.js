@@ -210,18 +210,19 @@ function displayDSAProblems() {
 
     const dsaSection = document.querySelector(".dsa-section");
 
-    savedDSAProblems.forEach(problemData => {
-
+    savedDSAProblems.forEach((problemData, index) => {
         const problem = document.createElement("div");
 
         problem.className = "dsa-item dynamic-dsa";
 
         problem.innerHTML = `
-            <p><strong>Problem:</strong> ${problemData.name}</p>
-            <p><strong>Language:</strong> ${problemData.language}</p>
-            <p><strong>Difficulty:</strong> ${problemData.difficulty}</p>
-        `;
+    <p><strong>Problem:</strong> ${problemData.name}</p>
+    <p><strong>Language:</strong> ${problemData.language}</p>
+    <p><strong>Difficulty:</strong> ${problemData.difficulty}</p>
 
+    <button onclick="editDSAProblem(${index})">✏️ Edit</button>
+    <button onclick="deleteDSAProblem(${index})">🗑️ Delete</button>
+`;
         dsaSection.appendChild(problem);
     });
 
@@ -230,3 +231,63 @@ function displayDSAProblems() {
 }
 
 displayDSAProblems();
+// Edit DSA Problem
+function editDSAProblem(index) {
+    const newName = prompt(
+        "Enter problem name:",
+        savedDSAProblems[index].name
+    );
+
+    if (newName === null || newName.trim() === "") {
+        return;
+    }
+
+    const newLanguage = prompt(
+        "Enter language:",
+        savedDSAProblems[index].language
+    );
+
+    if (newLanguage === null || newLanguage.trim() === "") {
+        return;
+    }
+
+    const newDifficulty = prompt(
+        "Enter difficulty (Easy, Medium, Hard):",
+        savedDSAProblems[index].difficulty
+    );
+
+    if (newDifficulty === null || newDifficulty.trim() === "") {
+        return;
+    }
+
+    savedDSAProblems[index].name = newName.trim();
+    savedDSAProblems[index].language = newLanguage.trim();
+    savedDSAProblems[index].difficulty = newDifficulty.trim();
+
+    localStorage.setItem(
+        "dsaProblems",
+        JSON.stringify(savedDSAProblems)
+    );
+
+    location.reload();
+}
+
+// Delete DSA Problem
+function deleteDSAProblem(index) {
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this problem?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    savedDSAProblems.splice(index, 1);
+
+    localStorage.setItem(
+        "dsaProblems",
+        JSON.stringify(savedDSAProblems)
+    );
+
+    location.reload();
+}

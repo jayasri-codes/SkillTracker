@@ -4,7 +4,6 @@ SkillTracker is a student career and skill tracking web application built with H
 
 
 ## 📸 Project Preview<img width="1920" height="1080" alt="Screenshot 2026-09-28 215843" src="https://github.com/user-attachments/assets/8fa3b48d-c903-4cb4-8b12-87326c9f561f" />
-<img width="1920" height="1080" alt="Screenshot (5)" src="https://github.com/user-attachments/assets/af8d0f2d-cd79-442d-bbe6-b262496ceb4b" />
 
 ## 🚀 Live Website
 

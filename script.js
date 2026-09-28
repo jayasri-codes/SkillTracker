@@ -761,3 +761,161 @@ function deleteCertificate(index) {
 }
 // Load certificates when page opens
 displayCertificates();
+// ===============================
+// LOAD SAVED GOALS
+// ===============================
+
+let savedGoals =
+    JSON.parse(localStorage.getItem("goals")) || [];
+
+
+// ===============================
+// ADD GOAL
+// ===============================
+
+function addGoal() {
+
+    const goalName =
+        document.getElementById("goal-name")
+            .value.trim();
+
+    const goalDescription =
+        document.getElementById("goal-description")
+            .value.trim();
+
+    if (
+        goalName === "" ||
+        goalDescription === ""
+    ) {
+        alert("Please enter goal name and description.");
+        return;
+    }
+
+    savedGoals.push({
+        name: goalName,
+        description: goalDescription
+    });
+
+    localStorage.setItem(
+        "goals",
+        JSON.stringify(savedGoals)
+    );
+
+    document.getElementById("goal-name").value = "";
+    document.getElementById("goal-description").value = "";
+}
+// ===============================
+// DISPLAY GOALS
+// ===============================
+
+function displayGoals() {
+
+    const goalsSection =
+        document.querySelector(".goals-section");
+
+    if (!goalsSection) return;
+
+    // Remove previously added goals
+    document
+        .querySelectorAll(".dynamic-goal")
+        .forEach(goal => {
+            goal.remove();
+        });
+
+    savedGoals.forEach(
+        (goalData, index) => {
+
+            const goal =
+                document.createElement("div");
+
+            goal.className =
+                "goal-card dynamic-goal";
+
+            goal.innerHTML = `
+                <h3>${goalData.name}</h3>
+
+                <p>
+                    ${goalData.description}
+                </p>
+
+                <button onclick="editGoal(${index})">
+                    ✏️ Edit
+                </button>
+
+                <button onclick="deleteGoal(${index})">
+                    🗑️ Delete
+                </button>
+            `;
+
+            goalsSection.appendChild(goal);
+        }
+    );
+}
+// ===============================
+// EDIT GOAL
+// ===============================
+
+function editGoal(index) {
+
+    const newName = prompt(
+        "Enter goal name:",
+        savedGoals[index].name
+    );
+
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
+        return;
+    }
+
+    const newDescription = prompt(
+        "Enter goal description:",
+        savedGoals[index].description
+    );
+
+    if (
+        newDescription === null ||
+        newDescription.trim() === ""
+    ) {
+        return;
+    }
+
+    savedGoals[index].name =
+        newName.trim();
+
+    savedGoals[index].description =
+        newDescription.trim();
+
+    localStorage.setItem(
+        "goals",
+        JSON.stringify(savedGoals)
+    );
+
+    displayGoals();
+}
+// ===============================
+// DELETE GOAL
+// ===============================
+
+function deleteGoal(index) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this goal?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    savedGoals.splice(index, 1);
+
+    localStorage.setItem(
+        "goals",
+        JSON.stringify(savedGoals)
+    );
+
+    displayGoals();
+}
+// Load goals when page opens
+displayGoals();

@@ -13,15 +13,22 @@ body {
 /* Header */
 
 header {
-    background: #1f2937;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
     color: white;
-    padding: 25px;
     text-align: center;
+    padding: 35px 20px;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 header h1 {
-    font-size: 32px;
-    margin-bottom: 8px;
+    margin: 0;
+    font-size: 36px;
+}
+
+header p {
+    margin-top: 8px;
+    font-size: 18px;
 }
 
 /* Main */

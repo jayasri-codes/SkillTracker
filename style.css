@@ -263,3 +263,24 @@ footer {
 footer p {
     font-size: 14px;
 }
+.skill,
+.project-card,
+.certificate-card,
+.goal-card,
+.dsa-item {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.skill:hover,
+.project-card:hover,
+.certificate-card:hover,
+.goal-card:hover,
+.dsa-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 16px rgba(0, 0, 0, 0.12);
+}

@@ -850,6 +850,9 @@ function displayGoals() {
             goalsSection.appendChild(goal);
         }
     );
+    document.getElementById("goals-count").textContent =
+    document.querySelectorAll(".goal-card").length;
+    displayGoals();
 }
 // ===============================
 // EDIT GOAL

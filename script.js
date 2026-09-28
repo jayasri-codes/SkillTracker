@@ -598,3 +598,166 @@ displayProjects();
 // Dashboard counts
 document.getElementById("certifications-count").textContent =
     document.querySelectorAll(".certificate-card").length;
+// ===============================
+// LOAD SAVED CERTIFICATES
+// ===============================
+
+let savedCertificates =
+    JSON.parse(localStorage.getItem("certificates")) || [];
+
+
+// ===============================
+// ADD CERTIFICATE
+// ===============================
+
+function addCertificate() {
+
+    const certificateName =
+        document.getElementById("certificate-name")
+            .value.trim();
+
+    const certificateDescription =
+        document.getElementById("certificate-description")
+            .value.trim();
+
+    if (
+        certificateName === "" ||
+        certificateDescription === ""
+    ) {
+        alert("Please enter certificate name and description.");
+        return;
+    }
+
+    savedCertificates.push({
+        name: certificateName,
+        description: certificateDescription
+    });
+
+    localStorage.setItem(
+        "certificates",
+        JSON.stringify(savedCertificates)
+    );
+
+    displayCertificates();
+
+    document.getElementById("certificate-name").value = "";
+    document.getElementById("certificate-description").value = "";
+}
+// ===============================
+// DISPLAY CERTIFICATES
+// ===============================
+
+function displayCertificates() {
+
+    const certificateSection =
+        document.querySelector(".certifications-section");
+
+    if (!certificateSection) return;
+
+    // Remove previously added certificates
+    document
+        .querySelectorAll(".dynamic-certificate")
+        .forEach(certificate => {
+            certificate.remove();
+        });
+
+    savedCertificates.forEach(
+        (certificateData, index) => {
+
+            const certificate =
+                document.createElement("div");
+
+            certificate.className =
+                "certificate-card dynamic-certificate";
+
+            certificate.innerHTML = `
+                <h3>${certificateData.name}</h3>
+
+                <p>
+                    ${certificateData.description}
+                </p>
+
+                <button onclick="editCertificate(${index})">
+                    ✏️ Edit
+                </button>
+
+                <button onclick="deleteCertificate(${index})">
+                    🗑️ Delete
+                </button>
+            `;
+
+            certificateSection.appendChild(certificate);
+        }
+    );
+
+    document.getElementById("certifications-count").textContent =
+        document.querySelectorAll(".certificate-card").length;
+}
+// ===============================
+// EDIT CERTIFICATE
+// ===============================
+
+function editCertificate(index) {
+
+    const newName = prompt(
+        "Enter certificate name:",
+        savedCertificates[index].name
+    );
+
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
+        return;
+    }
+
+    const newDescription = prompt(
+        "Enter description:",
+        savedCertificates[index].description
+    );
+
+    if (
+        newDescription === null ||
+        newDescription.trim() === ""
+    ) {
+        return;
+    }
+
+    savedCertificates[index].name =
+        newName.trim();
+
+    savedCertificates[index].description =
+        newDescription.trim();
+
+    localStorage.setItem(
+        "certificates",
+        JSON.stringify(savedCertificates)
+    );
+
+    displayCertificates();
+}
+// ===============================
+// DELETE CERTIFICATE
+// ===============================
+
+function deleteCertificate(index) {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to delete this certificate?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    savedCertificates.splice(index, 1);
+
+    localStorage.setItem(
+        "certificates",
+        JSON.stringify(savedCertificates)
+    );
+
+    displayCertificates();
+}
+// Load certificates when page opens
+displayCertificates();

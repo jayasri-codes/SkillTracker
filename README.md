@@ -65,6 +65,10 @@ SkillTracker/
 
 **Jayasri Pakalapati**
 
+## License
+
+This project is created for learning and educational purposes.
+
 B.Tech Computer Science & Engineering Student
 
 🔗 [GitHub](https://github.com/jayasri-codes)

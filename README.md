@@ -38,16 +38,14 @@ SkillTracker helps students organize their technical skills, projects, certifica
 
 ![SkillTracker Dashboard](Screenshot%202026-09-29%20201809.png)
 
-## Project Structure
+## 📂 Project Structure
 
-```text
-SkillTracker/
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-└── Screenshot 2026-09-29 201809.png
-\`\`\`
+**SkillTracker/**
+- 📄 index.html
+- 🎨 style.css
+- ⚙️ script.js
+- 📖 README.md
+- 🖼️ Screenshot 2026-09-29 201809.png
 
 ## 👩‍💻 Author
 

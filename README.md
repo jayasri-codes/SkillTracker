@@ -45,6 +45,16 @@ GitHub: [@jayasri-codes](https://github.com/jayasri-codes)
 
 [View Source Code](https://github.com/jayasri-codes/SkillTracker)
 
+## Project Structure
+
+```text
+SkillTracker/
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── Screenshot 2026-09-29 201809.png
+
 ## Screenshots
 
 ### Dashboard

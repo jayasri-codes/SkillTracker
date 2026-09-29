@@ -49,4 +49,4 @@ GitHub: [@jayasri-codes](https://github.com/jayasri-codes)
 
 ### Dashboard
 
-![SkillTracker Dashboard](screenshot.png)
+![SkillTracker Dashboard](Screenshot%202026-09-29%20201809.png)

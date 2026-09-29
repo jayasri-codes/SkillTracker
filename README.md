@@ -3,7 +3,7 @@
 SkillTracker is a student career and skill tracking web application built with HTML, CSS and JavaScript.
 
 
-## 📸 Project Preview<img width="1920" height="1080" alt="Screenshot 2026-09-28 215843" src="https://github.com/user-attachments/assets/8fa3b48d-c903-4cb4-8b12-87326c9f561f" />
+
 
 ## 🚀 Live Website
 

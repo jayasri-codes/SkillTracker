@@ -60,3 +60,13 @@ SkillTracker/
 ### Dashboard
 
 ![SkillTracker Dashboard](Screenshot%202026-09-29%20201809.png)
+
+## Author
+
+**Jayasri Pakalapati**
+
+B.Tech Computer Science & Engineering Student
+
+🔗 [GitHub](https://github.com/jayasri-codes)
+
+🔗 [LinkedIn](https://www.linkedin.com/in/jayasri-pakalapati-222ab6337/)

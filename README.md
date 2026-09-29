@@ -38,7 +38,7 @@ SkillTracker helps students organize their technical skills, projects, certifica
 
 ![SkillTracker Dashboard](Screenshot%202026-09-29%20201809.png)
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 SkillTracker/
@@ -47,7 +47,7 @@ SkillTracker/
 ├── script.js
 ├── README.md
 └── Screenshot 2026-09-29 201809.png
-
+\`\`\`
 
 ## 👩‍💻 Author
 
@@ -64,7 +64,4 @@ This project is created for learning and educational purposes.
 
 ## 🔗 Repository
 
-[View Source Code](https://github.com/jayasri-codes/SkillTracker)
-├── script.js
-├── README.md
-└── Screenshot 2026-09-29 201809.png
+[View Source Code](https://github.com/jayasri-codes/SkillTracker/)

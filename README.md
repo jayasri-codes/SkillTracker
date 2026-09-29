@@ -1,4 +1,4 @@
-<img width="1869" height="886" alt="Screenshot 2026-09-29 201809" src="https://github.com/user-attachments/assets/e38a1e57-e454-407a-b251-a8f5251304b2" />
+<img width="2172" height="724" alt="ChatGPT Image Sep 29, 2026, 07_55_57 PM" src="https://github.com/user-attachments/assets/30e0ae0a-e541-4ac7-90a2-ec9d5624690c" />
 
 # SkillTracker
 

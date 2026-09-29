@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="skilltracker-banner.png" alt="SkillTracker Banner" width="100%">
-</p>
+<img width="1869" height="886" alt="Screenshot 2026-09-29 201809" src="https://github.com/user-attachments/assets/e38a1e57-e454-407a-b251-a8f5251304b2" />
 
 # SkillTracker
 

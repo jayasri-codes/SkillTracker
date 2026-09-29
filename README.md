@@ -44,3 +44,9 @@ GitHub: [@jayasri-codes](https://github.com/jayasri-codes)
 ## 📂 Repository
 
 [View Source Code](https://github.com/jayasri-codes/SkillTracker)
+
+## Screenshots
+
+### Dashboard
+
+![SkillTracker Dashboard](screenshot.png)

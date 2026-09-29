@@ -45,7 +45,7 @@ SkillTracker helps students organize their technical skills, projects, certifica
 - 🎨 style.css
 - ⚙️ script.js
 - 📖 README.md
-- 🖼️ Screenshot 2026-09-29 201809.png
+- 🖼️ Banner
 
 ## 👩‍💻 Author
 
